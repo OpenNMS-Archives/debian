@@ -156,7 +156,9 @@ install: build
 		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/install-sh \
 		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/configure \
 		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/mkinstalldirs \
-		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/missing
+		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/missing \
+		$(ONMSCTR)/usr/share/opennms/contrib/mibparser/dist/parseMib.sh  \
+		$(ONMSCTR)/usr/share/opennms/contrib/report.sh
 
 	##
 	## Setup the opennms-server package
