@@ -1,0 +1,7 @@
+Template: opennms-webapp/changes
+Type: note
+Description: Necessary changes to Tomcat for pre-1.1.4 upgrades
+  The Tomcat4 server context has been moved from /etc/tomcat4/server.xml
+  to its own standalone file, /var/lib/tomcat4/webapps/opennms.xml. Per
+  the release notes, be sure that you have removed the old context before
+  attempting to access the webapp, (the two will conflict).
