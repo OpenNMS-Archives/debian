@@ -19,6 +19,7 @@ export BUILDDEFINES=\
 	-Dinstall.rrdtool.bin=/usr/bin/rrdtool \
 	-Dinstall.share.dir=/var/lib/opennms \
 	-Dinstall.servlet.dir=/usr/share/opennms/webapp \
+	-Dinstall.webapps.dir=/usr/share/opennms/webapp \
 	-Dinstall.logs.dir=/var/log/opennms \
 	-Dinstall.pid.file=/var/run/opennms.pid \
 	-Dinstall.postgresql.dir=/usr/lib/postgresql/lib/opennms \
