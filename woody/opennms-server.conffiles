@@ -1,7 +1,7 @@
 /etc/opennms/actiond-configuration.xml
 /etc/opennms/capsd-configuration.xml
-/etc/opennms/categories.xml
 /etc/opennms/castor.properties
+/etc/opennms/categories.xml
 /etc/opennms/collectd-configuration.xml
 /etc/opennms/database-schema.xml
 /etc/opennms/datacollection-config.xml
@@ -19,7 +19,6 @@
 /etc/opennms/ksc-performance-reports.xml
 /etc/opennms/log4j.properties
 /etc/opennms/magic-users.properties
-/etc/opennms/map.disable
 /etc/opennms/notifd-configuration.xml
 /etc/opennms/notificationCommands.xml
 /etc/opennms/notifications.xml

@@ -39,16 +39,7 @@ Differences in the Debian packages
 Known Issues
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- By default, access to Postgresql is a lot more restrictive under Debian
-  than it is on the other supported distributions so the opennms-db 
-  post-install makes some rather liberal changes to your pg_hba.conf.
-
-- The new installer does not address the need to run tomcat4 as root, so 
-  you must manually edit /etc/default/tomcat4.
-
-- The new java installer, (opennms_install.jar), is packaged in 
-  opennms-server, but it currently invoked during the post install of both
-  opennms-webapp and opennms-db, make neither of them installable without
-  also installing opennms-server.
+- The webapp will not work unless you either run tomcat4 as root, or
+  adjust permissions yourself.
 
 -- Eric Evans <eevans@sym-link.com>, Wed, 14 Nov 2004 15:50:00 -0600

@@ -1,3 +1,13 @@
+opennms (1.1.5-1woody) unstable; urgency=low
+
+  * New upstream release.
+  * Dropped installer invocation in opennms-db, opennms-webapp.
+  * Only remove data in /var/lib/opennms on purge.
+  * Added debconf note, (conditional on upgrade from < 1.1.5), about
+    the need to manually run the installer.
+
+ -- Eric Evans <eevans@sym-link.com>  Fri, 28 Jan 2005 10:09:03 -0600
+
 opennms (1.1.4-1woody) unstable; urgency=low
 
   * New upstream release.

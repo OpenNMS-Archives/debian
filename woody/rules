@@ -24,7 +24,7 @@ export BUILDDEFINES=\
 	-Dinstall.postgresql.dir=/usr/lib/postgresql/lib/opennms \
 	-Dbuild.postgresql.include.dir=/usr/include/postgresql/server
 
-VER=1.1.4
+VER=1.1.5
 TMP=$(CURDIR)/debian/tmp
 ONMSCOM=$(CURDIR)/debian/opennms-common
 ONMSCTR=$(CURDIR)/debian/opennms-contrib
