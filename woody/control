@@ -3,7 +3,7 @@ Section: contrib/net
 Priority: optional
 Maintainer: Eric Evans <eevans@sym-link.com>
 Build-Depends: debhelper (>> 3.0.0), ant, j2sdk1.4 | java2-compiler, librrd0-dev (>= 1.0.35), postgresql-dev (>= 7.2)
-Standards-Version: 3.5.8
+Standards-Version: 3.1.0
 
 Package: opennms
 Section: contrib/net
@@ -61,7 +61,7 @@ Package: opennms-db
 Section: contrib/net
 Architecture: all
 Conflicts: opennms (<< 1.1.4-1)
-Depends: ${perl:Depends}, libdbi-perl, libdbd-pg-perl, libiplike-pgsql (=${Source-Version}), opennms-common (=${Source-Version}), postgresql (>= 7.2)
+Depends: ${perl:Depends}, libdbi-perl, libdbd-pg-perl, libiplike-pgsql (=${Source-Version}), opennms-common (=${Source-Version}), postgresql (>= 7.2), debconf
 Recommends: opennms-webapp, qpage
 Suggests: opennms-doc
 Description: The Open Network Management System, (database specific files)
