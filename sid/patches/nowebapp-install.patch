@@ -1,0 +1,14 @@
+--- src/install/org/opennms/install/Installer.java 2005-02-11 22:04:10.000000000 +0000
++++ src/install/org/opennms/install/Installer.java 2005-02-14 20:13:52.000000000 +0000
+@@ -437,7 +437,10 @@
+ 						break;
+ 
+ 					case 'y':
+-						m_install_webapp = true;
++						System.out.println("There is no need to run the " +
++							"installer with -y on Debian");
++						System.exit(0);
++						//m_install_webapp = true;
+ 						break;
+ 
+ 					default:
