@@ -23,7 +23,7 @@ Description: The Open Network Management System
 Package: opennms-common
 Section: contrib/net
 Architecture: all
-Conflicts: opennms (<< 1.1.3-1)
+Conflicts: opennms (<< 1.1.4-1)
 Depends: ${perl:Depends}, libdbi-perl, libdbd-pg-perl, libgetopt-mixed-perl
 Recommends: libnet-snmp-perl
 Description: The Open Network Management System, (common files)

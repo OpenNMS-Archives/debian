@@ -5,7 +5,7 @@
   at Tomcat java policy).
 
 - Either the packages should readily support running the webapp, database,
-  and app on seperate machines, or some of these packages should be merged
+  and app on separate machines, or some of these packages should be merged
   back together.
 
 - Write a man page.
