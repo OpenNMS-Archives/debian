@@ -7,7 +7,7 @@
 -						m_install_webapp = true;
 +						System.out.println("There is no need to run the " +
 +							"installer with -y on Debian");
-+						System.exit(0);
++						System.exit(1);
 +						//m_install_webapp = true;
  						break;
  
