@@ -203,7 +203,7 @@ install: build
 	##
 	mv $(TMP)/usr/share/opennms/webapp/* \
 		$(ONMSWEB)/usr/share/opennms/webapp/
-	mv $(TMP)/usr/share/opennms/webapps/opennms.xml \
+	mv $(ONMSWEB)/usr/share/opennms/webapp/opennms.xml \
 		$(ONMSWEB)/var/lib/tomcat4/webapps/
 	install -m 644 $(CURDIR)/debian/opennms-webapp.overrides \
 		$(ONMSWEB)/usr/share/lintian/overrides/opennms-webapp
