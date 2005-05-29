@@ -23,7 +23,7 @@ Description: open network monitoring and management application
 Package: opennms-common
 Section: contrib/net
 Architecture: all
-Conflicts: opennms (<< 1.2.1-1)
+Conflicts: opennms (<< 1.2.2-1)
 Depends: ${perl:Depends}, libdbi-perl, libdbd-pg-perl, libgetopt-mixed-perl
 Recommends: libnet-snmp-perl
 Description: open network monitoring and management application, (common files)
@@ -42,7 +42,7 @@ Description: open network monitoring and management application, (common files)
 Package: opennms-contrib
 Section: contrib/net
 Architecture: all
-Conflicts: opennms (<< 1.2.1-1)
+Conflicts: opennms (<< 1.2.2-1)
 Depends: ${perl:Depends}, libwww-perl, libgtk-perl, opennms-common (=${Source-Version})
 Description: open network monitoring and management application, (contrib)
  OpenNMS is an enterprise-grade network management system written in Java.
@@ -60,7 +60,7 @@ Description: open network monitoring and management application, (contrib)
 Package: opennms-db
 Section: contrib/net
 Architecture: all
-Conflicts: opennms (<< 1.2.1-1)
+Conflicts: opennms (<< 1.2.2-1)
 Depends: ${perl:Depends}, libdbi-perl, libdbd-pg-perl, libiplike-pgsql (=${Source-Version}), opennms-common (=${Source-Version}), postgresql (>= 7.4), debconf
 Recommends: opennms-webapp, qpage
 Suggests: opennms-doc
@@ -79,7 +79,7 @@ Description: open network monitoring and management application, (database)
 Package: opennms-server
 Section: contrib/net
 Architecture: all
-Conflicts: opennms (<< 1.2.1-1)
+Conflicts: opennms (<< 1.2.2-1)
 Depends: j2sdk1.4 | java-virtual-machine | java2-runtime, libopennms-java (=${Source-Version}), mailx, metamail, opennms-common (=${Source-Version}), rrdtool
 Recommends: opennms-db, opennms-webapp, qpage
 Suggests: opennms-doc
@@ -96,7 +96,7 @@ Description: open network monitoring and management application
 Package: opennms-webapp
 Section: contrib/net
 Architecture: all
-Conflicts: opennms (<< 1.2.1-1)
+Conflicts: opennms (<< 1.2.2-1)
 Depends: j2sdk1.4 | java-virtual-machine | java2-runtime, libopennms-java (=${Source-Version}), opennms-common (=${Source-Version}), tomcat4 (>= 4.1.18), debconf
 Suggests: opennms-doc
 Description: open network monitoring and management application, (web interface)
@@ -114,7 +114,7 @@ Description: open network monitoring and management application, (web interface)
 Package: opennms-doc
 Section: contrib/doc
 Architecture: all
-Conflicts: opennms (<< 1.2.1-1)
+Conflicts: opennms (<< 1.2.2-1)
 Description: open network monitoring and management application, (documentation)
  OpenNMS is an enterprise-grade network management system written in Java
  It can perform availability monitoring of various network services to
@@ -130,7 +130,7 @@ Description: open network monitoring and management application, (documentation)
 Package: libopennms-java
 Section: contrib/net
 Architecture: all
-Conflicts: opennms (<< 1.2.1-1)
+Conflicts: opennms (<< 1.2.2-1)
 Depends: j2sdk1.4 | java2-runtime, libicmp-jni, librrd0-jni, libpgjava (>= 7.4.2)
 Suggests: j2sdk1.4 | java-virtual-machine
 Description: open network monitoring and management application, (libraries)
@@ -149,7 +149,7 @@ Description: open network monitoring and management application, (libraries)
 Package: libicmp-jni
 Section: contrib/net
 Architecture: any
-Conflicts: opennms (<< 1.2.1-1)
+Conflicts: opennms (<< 1.2.2-1)
 Depends: ${shlibs:Depends}
 Description: java native interface library for ICMP
  Native libraries used as an interface to ICMP from Java
@@ -157,7 +157,7 @@ Description: java native interface library for ICMP
 Package: librrd0-jni
 Section: contrib/net
 Architecture: any
-Conflicts: opennms (<< 1.2.1-1)
+Conflicts: opennms (<< 1.2.2-1)
 Depends: ${shlibs:Depends}
 Description: java native interface library for rrdtool
  Native libraries used as an interface to rrdtool from Java
@@ -165,7 +165,7 @@ Description: java native interface library for rrdtool
 Package: libiplike-pgsql
 Section: contrib/net
 Architecture: any
-Conflicts: opennms (<< 1.2.1-1)
+Conflicts: opennms (<< 1.2.2-1)
 Depends: postgresql (>= 7.4)
 Description: postgresql stored procedure used for searching IP addresses
  A stored procedure for Postgresql that allows you to search attributes of
