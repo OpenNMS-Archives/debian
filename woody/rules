@@ -27,7 +27,7 @@ export BUILDDEFINES=\
 	-Dproduct.release=1 \
 	-Dproduct.snapshot=false
 
-VER=1.2.3
+VER=1.2.4
 TMP=$(CURDIR)/debian/tmp
 ONMSCOM=$(CURDIR)/debian/opennms-common
 ONMSCTR=$(CURDIR)/debian/opennms-contrib

@@ -1,3 +1,9 @@
+opennms (1.2.4-1woody) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Eric Evans <eevans@sym-link.com>  Sat, 27 Aug 2005 23:39:06 -0500
+   
 opennms (1.2.3-1woody) unstable; urgency=low
 
   * New upstream release.
