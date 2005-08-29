@@ -2,8 +2,8 @@ Source: opennms
 Section: contrib/net
 Priority: optional
 Maintainer: Eric Evans <eevans@sym-link.com>
-Build-Depends: debhelper (>> 4.2.1), ant, j2sdk1.4 | java2-compiler, librrd0-dev (>= 1.0.35), postgresql-dev (>= 7.4), po-debconf (>= 0.5.0)
-Standards-Version: 3.6.1
+Build-Depends: debhelper (>> 4.2.1), ant, j2sdk1.4 | java2-compiler, librrd2-dev, postgresql-dev (>= 7.4), po-debconf (>= 0.5.0)
+Standards-Version: 3.6.2
 
 Package: opennms
 Section: contrib/net
@@ -131,7 +131,7 @@ Package: libopennms-java
 Section: contrib/net
 Architecture: all
 Conflicts: opennms (<< 1.2.3-1)
-Depends: j2sdk1.4 | java2-runtime, libicmp-jni, librrd0-jni, libpgjava (>= 7.4.2)
+Depends: j2sdk1.4 | java2-runtime, libicmp-jni, librrd2-jni, libpgjava (>= 7.4.2)
 Suggests: j2sdk1.4 | java-virtual-machine
 Description: open network monitoring and management application, (libraries)
  OpenNMS is an enterprise-grade network management system written in Java.
@@ -154,7 +154,7 @@ Depends: ${shlibs:Depends}
 Description: java native interface library for ICMP
  Native libraries used as an interface to ICMP from Java
 
-Package: librrd0-jni
+Package: librrd2-jni
 Section: contrib/net
 Architecture: any
 Conflicts: opennms (<< 1.2.3-1)
