@@ -6,7 +6,7 @@
 #export DH_VERBOSE=1
 
 # This is the debhelper compatability version to use.
-export DH_COMPAT=3
+export DH_COMPAT=5
 
 # Added to move the JAVA_HOME check up top
 # FIXIT=$(shell chmod o+x debian/getjava)
@@ -23,11 +23,11 @@ export BUILDDEFINES=\
 	-Dinstall.logs.dir=/var/log/opennms \
 	-Dinstall.pid.file=/var/run/opennms.pid \
 	-Dinstall.postgresql.dir=/usr/lib/postgresql/lib/opennms \
-	-Dbuild.postgresql.include.dir=/usr/include/postgresql/8.0/ \
+	-Dbuild.postgresql.include.dir=/usr/include/postgresql \
 	-Dproduct.release=1 \
 	-Dproduct.snapshot=false
 
-VER=1.2.4
+VER=1.2.5
 TMP=$(CURDIR)/debian/tmp
 ONMSCOM=$(CURDIR)/debian/opennms-common
 ONMSCTR=$(CURDIR)/debian/opennms-contrib
