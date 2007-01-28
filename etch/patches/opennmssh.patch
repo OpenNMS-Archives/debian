@@ -1,0 +1,21 @@
+--- tools/run/opennms.sh	2004-11-09 15:58:47.000000000 +0000
++++ tools/run/opennms.sh	2004-11-09 18:46:37.000000000 +0000
+@@ -43,7 +43,7 @@
+ # Number of times to do "opennms status" after starting OpenNMS to see
+ # if it comes up completely.  Set to "0" to disable.  Between each
+ # attempt we sleep for STATUS_WAIT seconds.  
+-START_TIMEOUT=10
++START_TIMEOUT=0
+ 
+ # Number of seconds to wait between each "opennms status" check when
+ # START_TIMEOUT > 0.
+@@ -70,6 +70,9 @@
+ # URL that this script uses to communicate with a running OpenNMS daemon.
+ INVOKE_URL="http://localhost:8181/invoke?objectname=OpenNMS:Name=FastExit"
+ 
++# On Debian, JNIs live in /usr/lib/jni
++export LD_LIBRARY_PATH=/usr/lib/jni
++
+ 
+ #### ------------> DO NOT CHANGE VARIABLES IN THIS FILE <------------- ####
+ #### Create $OPENNMS_HOME/etc/opennms.conf and put overrides in there. ####
