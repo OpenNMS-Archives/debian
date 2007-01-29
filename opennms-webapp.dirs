@@ -1,5 +1,5 @@
 etc/opennms
-etc/tomcat4/policy.d
-var/lib/tomcat4/webapps
+etc/tomcat5.5/policy.d
+var/lib/tomcat5.5/conf/Catalina/localhost
 usr/share/lintian/overrides
-usr/share/opennms/webapp
+usr/share/opennms/webapps/opennms
