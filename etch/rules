@@ -85,6 +85,9 @@ install: build
 	install -m 644 $(CURDIR)/debian/libiplike-pgsql.overrides \
 		$(LIBIPLK)/usr/share/lintian/overrides/libiplike-pgsql
 	mv $(TMP)/lib/iplike.so* \
+		$(LIBIPLK)/usr/lib/postgresql/8.1/lib/
+	mkdir -p $(LIBIPLK)/usr/share/opennms/lib
+	ln -s /usr/lib/postgresql/8.1/lib/iplike.so \
 		$(LIBIPLK)/usr/share/opennms/lib/
 
 	##
