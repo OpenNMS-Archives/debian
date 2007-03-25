@@ -1,8 +1,8 @@
 Source: opennms
 Section: contrib/net
 Priority: optional
-Maintainer: Eric Evans <eevans@sym-link.com>
-Build-Depends: debhelper (>= 5.0.42), ant, sun-java5-jdk, librrd2-dev, libpq-dev (>= 8.1), po-debconf (>= 1.0.7)
+Maintainer: Jeff Gehlbach <jeffg@opennms.org>
+Build-Depends: debhelper (>= 5.0.42), ant, sun-java5-jdk, librrd2-dev, postgresql-server-dev-8.1 | postgresql-server-dev-7.4, po-debconf (>= 1.0.7)
 Standards-Version: 3.6.2
 
 Package: opennms
@@ -61,7 +61,7 @@ Package: opennms-db
 Section: contrib/net
 Architecture: all
 Conflicts: opennms (<< 1.3.2)
-Depends: ${perl:Depends}, libdbi-perl, libdbd-pg-perl, libiplike-pgsql (=${Source-Version}), opennms-common (=${Source-Version}), postgresql-8.1 (>= 8.1), debconf
+Depends: ${perl:Depends}, libdbi-perl, libdbd-pg-perl, libiplike-pgsql (=${Source-Version}), opennms-common (=${Source-Version}), postgresql-8.1 | postgresql-7.4, debconf
 Recommends: opennms-webapp, qpage
 Suggests: opennms-doc
 Description: open network monitoring and management application, (database)
@@ -160,13 +160,14 @@ Architecture: any
 Conflicts: opennms (<< 1.3.2)
 Depends: ${shlibs:Depends}
 Description: java native interface library for rrdtool
- Native libraries used as an interface to rrdtool from Java
+ Native libraries used as an interface to rrdtool from Java.  Note that
+ as of OpenNMS 1.3.2, OpenNMS uses the pure-Java JRobin classes by default.
 
 Package: libiplike-pgsql
 Section: contrib/net
 Architecture: any
 Conflicts: opennms (<< 1.3.2)
-Depends: postgresql-8.1 (>= 8.1)
+Depends: postgresql-8.1 | postgresql-7.4
 Description: PostgreSQL stored procedure used for searching IP addresses
  A stored procedure for Postgresql that allows you to search attributes of
  type "inet" using ranges and wildcards.
