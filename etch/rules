@@ -169,7 +169,6 @@ install: build
 		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/mkinstalldirs \
 		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/missing \
 		$(ONMSCTR)/usr/share/opennms/contrib/mibparser/dist/parseMib.sh  \
-		$(ONMSCTR)/usr/share/opennms/contrib/report.sh \
 		$(ONMSCTR)/usr/share/opennms/contrib/rtc_restart.sh
 
 	##
