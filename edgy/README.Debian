@@ -1,4 +1,4 @@
-opennms for Debian
+OpenNMS for Debian
 ------------------
 
 This file only highlights the differences between the Debian packages and 
@@ -8,7 +8,7 @@ For comprehensive off-line documentation install the opennms-doc package,
 or check out the online documentation at http://www.opennms.org/users/docs/
 
 For troubleshooting installation and configuration issues see the FAQ, 
-http://wiki.opennms.org/tiki-list_faqs.php.
+http://www.opennms.org/index.php/FAQ
 
 If you are upgrading, be sure to check out the release notes, 
 (http://sourceforge.net/docman/?group_id=4141).
@@ -39,7 +39,8 @@ Differences in the Debian packages
 Known Issues
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- The webapp will not work unless you either run tomcat4 as root, or
+- The webapp will not work unless you either run tomcat5.5 as root, or
   adjust permissions yourself.
 
+-- Jeff Gehlbach <jeffg@opennms.org>, Sun Mar 25 00:38:27 EDT 2007
 -- Eric Evans <eevans@sym-link.com>, Wed, 14 Nov 2004 15:50:00 -0600

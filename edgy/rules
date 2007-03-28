@@ -9,9 +9,9 @@
 export DH_COMPAT=5
 
 # Added to move the JAVA_HOME check up top
-# FIXIT=$(shell chmod o+x debian/getjava)
-# JAVA_HOME=$(shell debian/getjava)
-# export JAVA_HOME
+#FIXIT=$(shell chmod o+x debian/getjava)
+#JAVA_HOME=$(shell debian/getjava)
+#export JAVA_HOME
 
 # Workaround for maven and fakeroot not playing nicely together
 # Note that setting M2_REPO alone is not enough -- it's also necessary
