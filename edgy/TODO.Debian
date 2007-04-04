@@ -1,21 +1,13 @@
-- Institute a permissions scheme that will allow Tomcat to run as user
-  tomcat4
-
 - Figure out why Tomcat refuses to use web.xml as a symlink, (hint: look
   at Tomcat java policy).
 
-- Either the packages should readily support running the webapp, database,
-  and app on separate machines, or some of these packages should be merged
-  back together.
+- The packages should readily support running the webapp, database, and
+  app on separate machines
 
 - Write a man page.
 
 - Audit for Debian policy
 
-- The installer, (opennms_install.jar), is packaged in opennms-server, but
-  is invoked from the post-install of opennms-db and opennms-webapp. Move
-  opennms_installer.jar to opennms-common, (which is a dependency for 
-  both).
-
 
 -- Eric Evans, <eevans@sym-link.com>
+-- Jeff Gehlbach, <jeffg@opennms.org>
