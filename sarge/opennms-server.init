@@ -1,0 +1,53 @@
+#! /bin/sh
+#
+# opennms	startup script for OpenNMS system
+#
+#		Written by Tony Simone <tony.simone@medvantx.com>
+#
+# $Id$
+#
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/sbin/opennms
+NAME=opennms
+DESC="Open Network Management System"
+
+test -x $DAEMON || exit 0
+
+set -e
+
+# read in settings from default file
+if [ -f /etc/default/opennms ]; then
+	. /etc/default/opennms
+fi
+
+export JAVA_HOME
+
+case "$1" in
+  start)
+	echo -n "Starting $DESC: $NAME"
+	$DAEMON start > /dev/null
+	echo "."
+	;;
+  stop)
+	echo -n "Stopping $DESC: $NAME"
+	$DAEMON stop > /dev/null
+	rm -f /var/run/$NAME.pid
+	echo "."
+	;;
+  restart|force-reload)
+	$0 stop
+	sleep 2
+	$0 start
+	;;
+  status)
+	$DAEMON -v status
+	;;
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
