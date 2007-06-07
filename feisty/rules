@@ -140,9 +140,6 @@ install: build
 		$(ONMSCOM)/usr/share/opennms/lib
 	mkdir -p $(ONMSCOM)/var/lib/opennms
 	mkdir -p $(ONMSCOM)/var/log/opennms
-	mkdir -p $(ONMSCOM)/var/log/opennms/daemons
-	mkdir -p $(ONMSCOM)/var/log/opennms/webapp
-	mkdir -p $(ONMSCOM)/var/log/opennms/controller
 	ln -s /var/log/opennms $(ONMSCOM)/usr/share/opennms/logs
 	chgrp -R nogroup $(ONMSCOM)/etc/opennms $(ONMSCOM)/var/lib/opennms \
 		$(ONMSCOM)/var/log/opennms
