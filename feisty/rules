@@ -43,8 +43,8 @@ export BUILDDEFINES=\
 	-Dinstall.webapps.dir=/usr/share/opennms/webapps \
 	-Dinstall.logs.dir=/var/log/opennms \
 	-Dinstall.pid.file=/var/run/opennms.pid \
-	-Dinstall.postgresql.dir=/usr/lib/postgresql/8.1/ \
-	-Dbuild.postgresql.include.dir=/usr/include/postgresql \
+	-Dinstall.postgresql.dir=/usr/lib/postgresql/8.2/ \
+	-Dbuild.postgresql.include.dir=/usr/include/postgresql/8.2/server \
 	-Dproduct.release=1 \
 	-Dproduct.snapshot=false
 
@@ -85,9 +85,9 @@ install: build
 	install -m 644 $(CURDIR)/debian/libiplike-pgsql.overrides \
 		$(LIBIPLK)/usr/share/lintian/overrides/libiplike-pgsql
 	mv $(TMP)/lib/iplike.so* \
-		$(LIBIPLK)/usr/lib/postgresql/8.1/lib/
+		$(LIBIPLK)/usr/lib/postgresql/8.2/lib/
 	mkdir -p $(LIBIPLK)/usr/share/opennms/lib
-	ln -s /usr/lib/postgresql/8.1/lib/iplike.so \
+	ln -s /usr/lib/postgresql/8.2/lib/iplike.so \
 		$(LIBIPLK)/usr/share/opennms/lib/
 
 	##
@@ -140,6 +140,9 @@ install: build
 		$(ONMSCOM)/usr/share/opennms/lib
 	mkdir -p $(ONMSCOM)/var/lib/opennms
 	mkdir -p $(ONMSCOM)/var/log/opennms
+	mkdir -p $(ONMSCOM)/var/log/opennms/daemon
+	mkdir -p $(ONMSCOM)/var/log/opennms/webapp
+	mkdir -p $(ONMSCOM)/var/log/opennms/controller
 	ln -s /var/log/opennms $(ONMSCOM)/usr/share/opennms/logs
 	chgrp -R nogroup $(ONMSCOM)/etc/opennms $(ONMSCOM)/var/lib/opennms \
 		$(ONMSCOM)/var/log/opennms

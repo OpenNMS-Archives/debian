@@ -13,7 +13,7 @@ case "$1" in
         update-rc.d opennms defaults 21 20 >/dev/null || :
 
         # Invoke runjava to setup java.conf
-        /usr/share/opennms/bin/runjava -q -s || :
+        /usr/share/opennms/bin/runjava -q -S /usr/lib/jvm/java-1.5.0-sun/bin/java || :
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
 

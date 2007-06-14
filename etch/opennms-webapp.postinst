@@ -10,6 +10,8 @@ set -e
 
 case "$1" in
     configure)
+	chown -R tomcat55:nogroup /var/log/opennms/webapp
+	chown -R tomcat55:root /etc/opennms
 
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
