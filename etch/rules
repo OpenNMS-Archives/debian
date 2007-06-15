@@ -67,6 +67,7 @@ clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
+	rm -f debian/files
 
 	sh ./build.sh -s $(CURDIR)/debian/maven-settings.xml -Ddist.dir=$(CURDIR)/debian -Ddist.name=tmp clean
 
@@ -140,7 +141,7 @@ install: build
 		$(ONMSCOM)/usr/share/opennms/lib
 	mkdir -p $(ONMSCOM)/var/lib/opennms
 	mkdir -p $(ONMSCOM)/var/log/opennms
-	mkdir -p $(ONMSCOM)/var/log/opennms/daemons
+	mkdir -p $(ONMSCOM)/var/log/opennms/daemon
 	mkdir -p $(ONMSCOM)/var/log/opennms/webapp
 	mkdir -p $(ONMSCOM)/var/log/opennms/controller
 	ln -s /var/log/opennms $(ONMSCOM)/usr/share/opennms/logs
@@ -165,6 +166,8 @@ install: build
 		$(ONMSCTR)/usr/share/lintian/overrides/opennms-contrib
 	mv $(TMP)/contrib/* \
 		$(ONMSCTR)/usr/share/opennms/contrib/
+	# Remove this versioned i386 Linux binary to quiet lintian
+	rm -f $(ONMSCTR)/usr/share/opennms/contrib/qosdaemon/qos_example_configuration/testtraps/trapgen
 	chmod 755 $(ONMSCTR)/usr/share/opennms/contrib/*.pl \
 		$(ONMSCTR)/usr/share/opennms/contrib/downOpenNMS \
 		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/install-sh \
@@ -172,6 +175,9 @@ install: build
 		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/mkinstalldirs \
 		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/missing \
 		$(ONMSCTR)/usr/share/opennms/contrib/mibparser/dist/parseMib.sh  \
+		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/depcomp \
+		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/src/rename-mibs.pl \
+		$(ONMSCTR)/usr/share/opennms/contrib/qosdaemon/qos_example_configuration/opennms_1_3_2_example_deploy_1dot0.sh \
 		$(ONMSCTR)/usr/share/opennms/contrib/rtc_restart.sh
 
 	##
