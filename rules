@@ -26,7 +26,6 @@ ONMSDB=$(CURDIR)/debian/opennms-db
 ONMSDOC=$(CURDIR)/debian/opennms-doc
 ONMSSVR=$(CURDIR)/debian/opennms-server
 ONMSWEB=$(CURDIR)/debian/opennms-webapp
-LIBIPLK=$(CURDIR)/debian/libiplike-pgsql
 LIBICMP=$(CURDIR)/debian/libicmp-jni
 LIBRRD2=$(CURDIR)/debian/librrd2-jni
 LIBONMS=$(CURDIR)/debian/libopennms-java
@@ -79,17 +78,6 @@ install: build
 	dh_installdirs
 	dh_testroot
 
-
-	##
-	## Setup the libiplike-pgsql package
-	##
-	install -m 644 $(CURDIR)/debian/libiplike-pgsql.overrides \
-		$(LIBIPLK)/usr/share/lintian/overrides/libiplike-pgsql
-	mv $(TMP)/lib/iplike.so* \
-		$(LIBIPLK)/usr/lib/postgresql/8.2/lib/
-	mkdir -p $(LIBIPLK)/usr/share/opennms/lib
-	ln -s /usr/lib/postgresql/8.2/lib/iplike.so \
-		$(LIBIPLK)/usr/share/opennms/lib/
 
 	##
 	## Setup the libicmp-jni package

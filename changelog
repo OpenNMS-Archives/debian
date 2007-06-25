@@ -1,6 +1,8 @@
-opennms (1.3.3-SNAPSHOT2) feisty; urgency=low
+opennms (1.3.3-1) unstable; urgency=low
 
   * New upstream release.
+  * Package libiplike-pgsql now separately versioned in three flavors
+    to match the target PostgreSQL version (7.4, 8.1, 8.2).
 
  -- Jeff Gehlbach <jeffg@opennms.org>  Wed, 28 Mar 2007 09:55:31 -0400
 

@@ -2,7 +2,7 @@ Source: opennms
 Section: contrib/net
 Priority: optional
 Maintainer: Jeff Gehlbach <jeffg@opennms.org>
-Build-Depends: debhelper (>= 5.0.42), ant, sun-java5-jdk, librrd2-dev, postgresql-server-dev-8.2, po-debconf (>= 1.0.5)
+Build-Depends: debhelper (>= 5.0.42), ant, sun-java5-jdk | sun-java6-jdk, librrd2-dev, po-debconf (>= 1.0.5)
 Standards-Version: 3.6.2
 
 Package: opennms
@@ -61,7 +61,7 @@ Package: opennms-db
 Section: contrib/net
 Architecture: all
 Conflicts: opennms (<< 1.2.4-1)
-Depends: ${perl:Depends}, libdbi-perl, libdbd-pg-perl, libiplike-pgsql (=${Source-Version}), opennms-common (=${Source-Version}), postgresql-8.2, debconf
+Depends: ${perl:Depends}, libdbi-perl, libdbd-pg-perl, iplike-pgsql74 | iplike-pgsql81 | iplike-pgsql82 , opennms-common (=${Source-Version}), postgresql-7.4 | postgresql-8.1 | postgresql-8.2, debconf
 Recommends: opennms-webapp, qpage
 Suggests: opennms-doc
 Description: open network monitoring and management application, (database)
@@ -80,7 +80,7 @@ Package: opennms-server
 Section: contrib/net
 Architecture: all
 Conflicts: opennms (<< 1.2.4-1)
-Depends: sun-java6-jdk | sun-java6-jre, libopennms-java (=${Source-Version}), mailx, metamail, opennms-common (=${Source-Version}), librrd2
+Depends: sun-java5-jdk | sun-java5-jre | sun-java6-jdk | sun-java6-jre, libopennms-java (=${Source-Version}), mailx, metamail, opennms-common (=${Source-Version}), librrd2
 Recommends: opennms-db, opennms-webapp, qpage
 Suggests: opennms-doc
 Description: open network monitoring and management application
@@ -97,7 +97,7 @@ Package: opennms-webapp
 Section: contrib/net
 Architecture: all
 Conflicts: opennms (<< 1.2.4-1)
-Depends: sun-java6-jdk | sun-java6-jre, libopennms-java (=${Source-Version}), opennms-common (=${Source-Version}), tomcat5.5 (>= 5.5.20), debconf
+Depends: sun-java5-jdk | sun-java5-jre | sun-java6-jdk | sun-java6-jre, libopennms-java (=${Source-Version}), opennms-common (=${Source-Version}), tomcat5.5 (>= 5.5.20), debconf
 Suggests: opennms-doc
 Description: open network monitoring and management application, (web interface)
  OpenNMS is an enterprise-grade network management system written in Java.
@@ -131,7 +131,7 @@ Package: libopennms-java
 Section: contrib/net
 Architecture: all
 Conflicts: opennms (<< 1.2.4-1)
-Depends: sun-java6-jdk | sun-java6-jre, libicmp-jni, librrd2-jni, libpg-java (>= 8.2)
+Depends: sun-java5-jdk | sun-java5-jre | sun-java6-jdk | sun-java6-jre, libicmp-jni, librrd2-jni, libpg-java (>= 8.2)
 Description: open network monitoring and management application, (libraries)
  OpenNMS is an enterprise-grade network management system written in Java.
  It can perform availability monitoring of various network services to
@@ -161,13 +161,4 @@ Depends: ${shlibs:Depends}
 Description: java native interface library for rrdtool
  Native libraries used as an interface to rrdtool from Java.  Note that
  as of OpenNMS 1.3.2, OpenNMS uses the pure-Java JRobin classes by default.
-
-Package: libiplike-pgsql
-Section: contrib/net
-Architecture: any
-Conflicts: opennms (<< 1.2.4-1)
-Depends: postgresql-8.2
-Description: PostgreSQL stored procedure used for searching IP addresses
- A stored procedure for Postgresql that allows you to search attributes of
- type "inet" using ranges and wildcards.
 
