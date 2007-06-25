@@ -1,0 +1,26 @@
+#! /bin/sh
+
+# $Id$
+
+#
+# Get JAVA_HOME
+#
+
+if [ -z "$JAVA_HOME" ]; then
+    for dir in /usr/lib/jvm/java-6-sun /usr/lib/jvm/java-1.5.0-sun
+    do
+        if [ -d "$dir" -a -f "$dir/lib/tools.jar" ]; then
+            JAVA_HOME="$dir"
+            break
+        fi
+    done
+
+    if [ -z "$JAVA_HOME" ]; then
+        echo "You need to set a valid JAVA_HOME in /etc/default/$NAME" >&2
+        exit 1
+    fi
+fi
+
+export JAVA_HOME
+echo "JAVA_HOME=$JAVA_HOME"
+
