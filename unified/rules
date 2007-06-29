@@ -12,7 +12,8 @@ export DH_COMPAT=5
 FIXIT=$(shell chmod o+x debian/getjava)
 JAVA_HOME=$(shell debian/getjava)
 export JAVA_HOME
-PATH=$(JAVA_HOME)/bin:$(PATH)
+OLDPATH=$(PATH)
+PATH=$(JAVA_HOME)/bin:$(OLDPATH)
 export PATH
 
 # Workaround for maven and fakeroot not playing nicely together
