@@ -15,8 +15,10 @@ case "$1" in
         # Invoke runjava to setup java.conf
 	if [ -x /usr/lib/jvm/java-6-sun/bin/java ]; then
 		/usr/share/opennms/bin/runjava -q -S /usr/lib/jvm/java-6-sun/bin/java || :
+		echo 'JAVA_HOME=/usr/lib/jvm/java-6-sun' >> /etc/default/opennms
 	else
 		/usr/share/opennms/bin/runjava -q -S /usr/lib/jvm/java-1.5.0-sun/bin/java || :
+		echo 'JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun' >> /etc/default/opennms
 	fi
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
