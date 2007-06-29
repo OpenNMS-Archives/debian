@@ -24,10 +24,10 @@ PATH=${JAVA_HOME}/bin:$PATH
 
 case "$1" in
 	"JAVA_HOME")
-		echo "JAVA_HOME=$JAVA_HOME"
+		echo "\"$JAVA_HOME\""
 		;;
 	"PATH")
-		echo "PATH=$PATH"
+		echo "\"$PATH\""
 		;;
 	*)
 		echo "You must specify either JAVA_HOME or PATH as the sole argument."
