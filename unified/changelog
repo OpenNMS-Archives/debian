@@ -1,3 +1,9 @@
+opennms (1.3.5-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Jeff Gehlbach <jeffg@opennms.org>  Fri, 29 Jun 2007 15:43:10 -0400
+
 opennms (1.3.3-1) unstable; urgency=low
 
   * New upstream release.
