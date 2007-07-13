@@ -44,8 +44,6 @@ export BUILDDEFINES=\
 	-Dinstall.webapps.dir=/usr/share/opennms/webapps \
 	-Dinstall.logs.dir=/var/log/opennms \
 	-Dinstall.pid.file=/var/run/opennms.pid \
-	-Dinstall.postgresql.dir=/usr/lib/postgresql/8.2/ \
-	-Dbuild.postgresql.include.dir=/usr/include/postgresql/8.2/server \
 	-Dproduct.release=1 \
 	-Dproduct.snapshot=false
 
