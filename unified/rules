@@ -28,8 +28,6 @@ ONMSDB=$(CURDIR)/debian/opennms-db
 ONMSDOC=$(CURDIR)/debian/opennms-doc
 ONMSSVR=$(CURDIR)/debian/opennms-server
 ONMSWEB=$(CURDIR)/debian/opennms-webapp
-LIBICMP=$(CURDIR)/debian/libicmp-jni
-LIBRRD2=$(CURDIR)/debian/librrd2-jni
 LIBONMS=$(CURDIR)/debian/libopennms-java
 
 export BUILDDEFINES=\
@@ -78,30 +76,6 @@ install: build
 	dh_installdirs
 	dh_testroot
 
-
-	##
-	## Setup the libicmp-jni package
-	##
-	install -m 644 $(CURDIR)/debian/libicmp-jni.overrides \
-		$(LIBICMP)/usr/share/lintian/overrides/libicmp-jni
-	mv $(TMP)/lib/libjicmp.so \
-		$(LIBICMP)/usr/lib/jni/libjicmp.so.$(VER)
-	chmod 644 $(LIBICMP)/usr/lib/jni/libjicmp.so.*
-	mkdir -p $(LIBICMP)/usr/share/opennms/lib
-	ln -s /usr/lib/jni/libjicmp.so.$(VER) \
-		$(LIBICMP)/usr/share/opennms/lib/libjicmp.so
-
-	##
-	## Setup the librrd2-jni package
-	##
-	install -m 644 $(CURDIR)/debian/librrd2-jni.overrides \
-		$(LIBRRD2)/usr/share/lintian/overrides/librrd2-jni
-	mv $(TMP)/lib/libjrrd.so \
-		$(LIBRRD2)/usr/lib/jni/libjrrd.so.$(VER)
-	chmod 644 $(LIBRRD2)/usr/lib/jni/libjrrd.so.*
-	mkdir -p $(LIBRRD2)/usr/share/opennms/lib
-	ln -s /usr/lib/jni/libjrrd.so.$(VER) \
-		$(LIBRRD2)/usr/share/opennms/lib/libjrrd.so
 
 	##
 	## Setup the opennms-db package
