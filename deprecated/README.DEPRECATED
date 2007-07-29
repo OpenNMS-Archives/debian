@@ -1,0 +1,6 @@
+The Debian packaging files have changed from having a directory for each
+supported Debian release (woody, sarge, sid, etc.) to having a single
+directory called 'unified' that works with all supported Debian and Ubuntu
+releases.
+
+- Jeff Gehlbach <jeffg@opennms.org>  Sun, 29 Jul 2007 18:46:13 -0500
