@@ -2,3 +2,4 @@ etc/opennms
 usr/sbin
 usr/share/lintian/overrides
 usr/share/opennms/lib
+usr/share/opennms/jetty-webapp
