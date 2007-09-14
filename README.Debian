@@ -28,11 +28,17 @@ Differences in the Debian packages
 
 - mail on Debian is /usr/bin/mail, not /bin/mail
 
-- Tomcat on Debian lives on port 8180. Since OpenNMS typically runs its
-  HttpAdaptor service on 8180, (see service-configuration.xml), that too
-  has been moved and is on 8280 for the Debian packages. All this really 
-  boils down to for most people is that you will need to point your 
-  browser at http://yourhost:8180/opennms/ instead of the more 
+- As of OpenNMS 1.3.7, the opennms-server package provides an embedded
+  servlet container for the web UI, listening on port 8980, and
+  opennms-webapp is no longer required, although the Tomcat-based UI is
+  still supported.  The embedded UI is available at
+  http://yourhost:8980/opennms/
+  
+  If you use Tomcat, it lives on port 8180. Since OpenNMS typically runs
+  its HttpAdaptor service on 8180, (see service-configuration.xml), that
+  too has been moved and is on 8280 for the Debian packages. All this
+  really boils down to for most people is that you will need to point
+  your browser at http://yourhost:8180/opennms/ instead of the more 
   conventional http://yourhost:8080/opennms/
 
 
@@ -42,5 +48,6 @@ Known Issues
 - The webapp will not work unless you either run tomcat5.5 as root, or
   adjust permissions yourself.
 
+-- Benjamin Reed <ranger@opennms.org>, Fri Sep 14 16:58:50 -0500
 -- Jeff Gehlbach <jeffg@opennms.org>, Sun Mar 25 00:38:27 EDT 2007
 -- Eric Evans <eevans@sym-link.com>, Wed, 14 Nov 2004 15:50:00 -0600
