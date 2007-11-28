@@ -31,7 +31,6 @@ ONMSWEB=$(CURDIR)/debian/opennms-webapp
 LIBONMS=$(CURDIR)/debian/libopennms-java
 
 export BUILDDEFINES=\
-	-s $(CURDIR)/debian/maven-settings.xml \
 	-Dopennms.home=/usr/share/opennms \
 	-Ddist.dir=$(CURDIR)/debian -Ddist.name=tmp \
 	-Dinstall.dir=/usr/share/opennms \
@@ -56,7 +55,13 @@ build: configure-stamp build-stamp
 build-stamp:
 	dh_testdir
 
-	sh ./build.sh $(BUILDDEFINES) install assembly:directory-inline
+	@if [ -f "$$OPENNMS_SETTINGS_XML" ]; then \
+		echo "using $$OPENNMS_SETTINGS_XML"; \
+		sh ./build.sh -s $$OPENNMS_SETTINGS_XML $(BUILDDEFINES) install assembly:directory-inline; \
+	else \
+		echo "using debian/maven-settings.xml"; \
+		sh ./build.sh $(CURDIR)/debian/maven-settings.xml $(BUILDDEFINES) install assembly:directory-inline; \
+	fi
 
 	touch build-stamp
 
@@ -132,13 +137,7 @@ install: build
 	rm -f $(ONMSCTR)/usr/share/opennms/contrib/qosdaemon/qos_example_configuration/testtraps/trapgen
 	chmod 755 $(ONMSCTR)/usr/share/opennms/contrib/*.pl \
 		$(ONMSCTR)/usr/share/opennms/contrib/downOpenNMS \
-		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/install-sh \
-		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/configure \
-		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/mkinstalldirs \
-		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/missing \
 		$(ONMSCTR)/usr/share/opennms/contrib/mibparser/dist/parseMib.sh  \
-		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/depcomp \
-		$(ONMSCTR)/usr/share/opennms/contrib/mib2opennms/src/rename-mibs.pl \
 		$(ONMSCTR)/usr/share/opennms/contrib/qosdaemon/qos_example_configuration/opennms_1_3_2_example_deploy_1dot0.sh \
 		$(ONMSCTR)/usr/share/opennms/contrib/rtc_restart.sh
 
@@ -176,7 +175,6 @@ install: build
 	chmod 660 $(ONMSSVR)/etc/opennms/users.xml \
 		$(ONMSSVR)/etc/opennms/groups.xml \
 		$(ONMSSVR)/etc/opennms/snmp-config.xml \
-		$(ONMSSVR)/etc/opennms/opennms-database.xml \
 		$(ONMSSVR)/etc/opennms/magic-users.properties \
 		$(ONMSSVR)/etc/opennms/vulnscand-configuration.xml
 	chmod 2775 $(ONMSSVR)/etc/opennms $(ONMSSVR)/etc/opennms/events
