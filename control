@@ -2,7 +2,7 @@ Source: opennms
 Section: contrib/net
 Priority: optional
 Maintainer: Jeff Gehlbach <jeffg@opennms.org>
-Build-Depends: debhelper (>= 5.0.42), ant, sun-java6-jdk | sun-java5-jdk, po-debconf (>= 1.0.5)
+Build-Depends: debhelper (>= 5.0.42), sun-java6-jdk | sun-java5-jdk, po-debconf (>= 1.0.5)
 Standards-Version: 3.7.2
 
 Package: opennms
@@ -61,7 +61,7 @@ Package: opennms-db
 Section: contrib/net
 Architecture: all
 Conflicts: opennms (<< 1.2.4-1)
-Depends: ${perl:Depends}, libdbi-perl, libdbd-pg-perl, iplike-pgsql82 | iplike-pgsql81 | iplike-pgsql74, opennms-common (=${Source-Version}), postgresql-8.2 | postgresql-8.1 | postgresql-7.4, debconf
+Depends: iplike-pgsql82 | iplike-pgsql81 | iplike-pgsql74, opennms-common (=${Source-Version}), postgresql-8.2 | postgresql-8.1 | postgresql-7.4, debconf
 Recommends: opennms-webapp, qpage
 Suggests: opennms-doc
 Description: open network monitoring and management application, (database)
