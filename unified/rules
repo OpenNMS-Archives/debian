@@ -60,7 +60,7 @@ build-stamp:
 		sh ./build.sh -s $$OPENNMS_SETTINGS_XML $(BUILDDEFINES) install assembly:directory-inline; \
 	else \
 		echo "using debian/maven-settings.xml"; \
-		sh ./build.sh $(CURDIR)/debian/maven-settings.xml $(BUILDDEFINES) install assembly:directory-inline; \
+		sh ./build.sh -s $(CURDIR)/debian/maven-settings.xml $(BUILDDEFINES) install assembly:directory-inline; \
 	fi
 
 	touch build-stamp
