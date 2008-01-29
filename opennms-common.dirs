@@ -4,4 +4,5 @@ usr/share/opennms/bin
 usr/share/opennms/lib/scripts
 usr/share/opennms/lib/updates
 var/lib/opennms
+var/lib/opennms/reports
 var/log/opennms
