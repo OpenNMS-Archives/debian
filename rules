@@ -5,34 +5,12 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-# This is the debhelper compatability version to use.
-export DH_COMPAT=5
-
-# Added to move the JAVA_HOME check up top
-# This should now set both JAVA_HOME and PATH, and export both for us
-FIXIT=$(shell chmod o+x debian/getjava)
-JAVA_HOME=$(shell debian/getjava JAVA_HOME)
-PATH=$(shell debian/getjava PATH)
-export JAVA_HOME PATH
-
-# Workaround for maven and fakeroot not playing nicely together
-# Note that setting M2_REPO alone is not enough -- it's also necessary
-# to tell maven (via -s) to use debian/maven-settings.xml
-export M2_REPO=$(HOME)/.m2/repository
-
-VER=1.3.9
-TMP=$(CURDIR)/debian/tmp
-ONMSCOM=$(CURDIR)/debian/opennms-common
-ONMSCTR=$(CURDIR)/debian/opennms-contrib
-ONMSDB=$(CURDIR)/debian/opennms-db
-ONMSDOC=$(CURDIR)/debian/opennms-doc
-ONMSSVR=$(CURDIR)/debian/opennms-server
-ONMSWEB=$(CURDIR)/debian/opennms-webapp
-LIBONMS=$(CURDIR)/debian/libopennms-java
+# Maven requires JAVA_HOME to be set properly
+export JAVA_HOME=$(shell debian/getjava)
 
 export BUILDDEFINES=\
 	-Dopennms.home=/usr/share/opennms \
-	-Ddist.dir=$(CURDIR)/debian -Ddist.name=tmp \
+	-Ddist.dir=$(CURDIR)/debian -Ddist.name=temp \
 	-Dinstall.dir=/usr/share/opennms \
 	-Dinstall.init.dir=/etc/init.d \
 	-Dinstall.rrdtool.bin=/usr/bin/rrdtool \
@@ -44,183 +22,133 @@ export BUILDDEFINES=\
 	-Dproduct.release=1 \
 	-Dproduct.snapshot=true
 
+STAMP_PATCH = debian/stamp-patched
+patch: $(STAMP_PATCH)
+$(STAMP_PATCH):
+	cat debian/patches/* | patch -p1
+	touch $(STAMP_PATCH)
 
-configure: configure-stamp
-configure-stamp:
+unpatch:
+	@if [ -f $(STAMP_PATCH) ]; then \
+		cat debian/patches/* | patch -p1 -R; \
+	fi
+	rm -f $(STAMP_PATCH)
+
+configure:
+
+STAMP_BUILD = debian/stamp-build
+build: patch configure $(STAMP_BUILD)
+$(STAMP_BUILD):
 	dh_testdir
-
-	touch configure-stamp
-
-build: configure-stamp build-stamp
-build-stamp:
-	dh_testdir
-
+	# -Duser.home=$(HOME) is needed to get maven to use the correct ~/.m2/ directory when being run with fakeroot
 	@if [ -f "$$OPENNMS_SETTINGS_XML" ]; then \
 		echo "using $$OPENNMS_SETTINGS_XML"; \
 		sh ./build.sh -s $$OPENNMS_SETTINGS_XML $(BUILDDEFINES) install assembly:directory-inline; \
 	else \
-		echo "using debian/maven-settings.xml"; \
-		sh ./build.sh -s $(CURDIR)/debian/maven-settings.xml $(BUILDDEFINES) install assembly:directory-inline; \
+		sh ./build.sh -Duser.home=$(HOME) $(BUILDDEFINES) install assembly:directory-inline; \
 	fi
+	touch $(STAMP_BUILD)
 
-	touch build-stamp
-
-clean:
+clean: unpatch
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp configure-stamp
-	rm -f debian/files
-
-	sh ./build.sh -s $(CURDIR)/debian/maven-settings.xml -Ddist.dir=$(CURDIR)/debian -Ddist.name=tmp clean
-
+	sh ./build.sh -Duser.home=$(HOME) -Ddist.dir=$(CURDIR)/debian -Ddist.name=temp clean
 	dh_clean
+	rm -f $(STAMP_BUILD)
 
 install: build
 	dh_testdir
-	dh_clean -k --exclude=tmp
+	dh_clean -k --exclude=temp
 	dh_installdirs
 	dh_testroot
-
-
-	##
-	## Setup the opennms-db package
-	##
-	install -m 644 $(CURDIR)/debian/opennms-db.overrides \
-		$(ONMSDB)/usr/share/lintian/overrides/opennms-db
-	mv $(TMP)/etc/*.sql $(ONMSDB)/etc/opennms/
-	chgrp nogroup $(ONMSDB)/etc/opennms
-	chmod 2775 $(ONMSDB)/etc/opennms
-	chmod 644 $(ONMSDB)/etc/opennms/*.sql
-
-	##
-	## Setup the opennms-common package
-	##
-	install -m 644  $(CURDIR)/debian/opennms-common.overrides \
-		$(ONMSCOM)/usr/share/lintian/overrides/opennms-common
-	mv $(TMP)/bin/* \
-		$(ONMSCOM)/usr/share/opennms/bin/
-	sed -e 's/opt\/OpenNMS/usr\/share\/opennms/g' \
-		$(ONMSCOM)/usr/share/opennms/bin/opennms > \
-		$(ONMSCOM)/usr/share/opennms/bin/opennms.tmp
-	mv $(ONMSCOM)/usr/share/opennms/bin/opennms.tmp \
-		$(ONMSCOM)/usr/share/opennms/bin/opennms
-	mv $(TMP)/lib/opennms_install.jar \
-		$(ONMSCOM)/usr/share/opennms/lib
-	mkdir -p $(ONMSCOM)/var/lib/opennms
-	mkdir -p $(ONMSCOM)/var/lib/opennms/reports
-	mkdir -p $(ONMSCOM)/var/log/opennms
-	mkdir -p $(ONMSCOM)/var/log/opennms/daemon
-	mkdir -p $(ONMSCOM)/var/log/opennms/webapp
-	mkdir -p $(ONMSCOM)/var/log/opennms/controller
-	ln -s /var/log/opennms $(ONMSCOM)/usr/share/opennms/logs
-	chgrp -R nogroup $(ONMSCOM)/etc/opennms $(ONMSCOM)/var/lib/opennms \
-		$(ONMSCOM)/var/log/opennms
-	chmod 2775 $(ONMSCOM)/etc/opennms \
-		$(ONMSCOM)/var/lib/opennms \
-		$(ONMSCOM)/var/log/opennms
-	chmod 755 $(ONMSCOM)/usr/share/opennms/bin/*
 
 	##
 	## Setup the libopennms-java package
 	##
-	mv $(TMP)/lib/opennms*.jar \
-		$(LIBONMS)/usr/share/opennms/lib/
-	chmod 644 $(LIBONMS)/usr/share/opennms/lib/*.jar
+	mv debian/temp/lib/opennms*.jar debian/libopennms-java/usr/share/java/opennms/
+	chmod 644 debian/libopennms-java/usr/share/java/opennms/*
 
 	##
-	## Setup the opennms-contrib package
+	## Setup the libopennmsdeps-java package
 	##
-	install -m 644 $(CURDIR)/debian/opennms-contrib.overrides \
-		$(ONMSCTR)/usr/share/lintian/overrides/opennms-contrib
-	mv $(TMP)/contrib/* \
-		$(ONMSCTR)/usr/share/opennms/contrib/
-	# Remove this versioned i386 Linux binary to quiet lintian
-	rm -f $(ONMSCTR)/usr/share/opennms/contrib/qosdaemon/qos_example_configuration/testtraps/trapgen
-	chmod 755 $(ONMSCTR)/usr/share/opennms/contrib/*.pl \
-		$(ONMSCTR)/usr/share/opennms/contrib/downOpenNMS \
-		$(ONMSCTR)/usr/share/opennms/contrib/mibparser/dist/parseMib.sh  \
-		$(ONMSCTR)/usr/share/opennms/contrib/qosdaemon/qos_example_configuration/opennms_1_3_2_example_deploy_1dot0.sh \
-		$(ONMSCTR)/usr/share/opennms/contrib/rtc_restart.sh
+	mv debian/temp/lib/*.jar debian/libopennmsdeps-java/usr/share/java/opennms/
+	chmod 644 debian/libopennmsdeps-java/usr/share/java/opennms/*
+
+	##
+	## Setup the opennms-common package
+	##
+	mv debian/temp/bin/* debian/opennms-common/usr/share/opennms/bin/
+	find debian/opennms-common/usr/share/opennms/bin -type f -execdir chmod 755 {} \;
+	mv debian/temp/etc/* debian/opennms-common/etc/opennms/
+	find debian/opennms-common/etc/opennms -type f -execdir chmod 644 {} \;
+
+	# Adjust permissions for config files containing sensitive information
+	install -m 644 debian/opennms-common.overrides debian/opennms-common/usr/share/lintian/overrides/opennms-common
+	chmod 640 \
+		debian/opennms-common/etc/opennms/users.xml \
+		debian/opennms-common/etc/opennms/groups.xml \
+		debian/opennms-common/etc/opennms/magic-users.properties \
+		debian/opennms-common/etc/opennms/opennms.properties \
+		debian/opennms-common/etc/opennms/opennms-datasources.xml \
+		debian/opennms-common/etc/opennms/snmp-config.xml \
+		debian/opennms-common/etc/opennms/vulnscand-configuration.xml
+
+	# Update paths in scripts and config files
+	sed -i -e 's/opt\/OpenNMS/usr\/share\/opennms/g' debian/opennms-common/usr/share/opennms/bin/opennms
+	sed -i -e 's/bin\/mail/usr\/bin\/mail/' debian/opennms-common/etc/opennms/notificationCommands.xml
+
+	# Adjust the HttpAdaptor port number to avoid conflicting with tomcat,
+	# which listens on 8180 by default
+	sed -i -e 's/8180/8280/' debian/opennms-common/etc/opennms/service-configuration.xml
+
+	##
+	## Setup the opennms-db package
+	##
 
 	##
 	## Setup the opennms-server package
 	##
-	install -m 755 $(CURDIR)/debian/opennms.binscript \
-		$(ONMSSVR)/usr/sbin/opennms
-	install -m 644 $(CURDIR)/debian/opennms-server.overrides \
-		$(ONMSSVR)/usr/share/lintian/overrides/opennms-server
-	mv $(TMP)/etc/* $(ONMSSVR)/etc/opennms/
-	mv $(TMP)/lib/*.jar $(ONMSSVR)/usr/share/opennms/lib/
-
-	install -d -m 755 $(ONMSSVR)/usr/share/opennms/jetty-webapps/opennms
-	mv $(TMP)/jetty-webapps/opennms/* \
-		$(ONMSSVR)/usr/share/opennms/jetty-webapps/opennms/
-
-	# Fix up some of the scripts and configs for Debian file/dir locations
-	sed -e 's/bin\/mail/usr\/bin\/mail/' \
-		$(ONMSSVR)/etc/opennms/notificationCommands.xml >\
-		$(ONMSSVR)/etc/opennms/notificationCommands.xml.tmp
-	mv $(ONMSSVR)/etc/opennms/notificationCommands.xml.tmp \
-		$(ONMSSVR)/etc/opennms/notificationCommands.xml
-
-	# Also fix the service configuration to now run HttpAdaptor on port 8280
-	sed -e 's/8180/8280/' \
-		$(ONMSSVR)/etc/opennms/service-configuration.xml >\
-		$(ONMSSVR)/etc/opennms/service-configuration.xml.tmp
-	mv $(ONMSSVR)/etc/opennms/service-configuration.xml.tmp \
-		$(ONMSSVR)/etc/opennms/service-configuration.xml
-
-	# Fix permissions and ownership
-	chgrp -R nogroup $(ONMSSVR)/etc/opennms
-	chmod 664 $(ONMSSVR)/etc/opennms/*
-	chmod 660 $(ONMSSVR)/etc/opennms/users.xml \
-		$(ONMSSVR)/etc/opennms/groups.xml \
-		$(ONMSSVR)/etc/opennms/snmp-config.xml \
-		$(ONMSSVR)/etc/opennms/magic-users.properties \
-		$(ONMSSVR)/etc/opennms/vulnscand-configuration.xml
-	chmod 2775 $(ONMSSVR)/etc/opennms $(ONMSSVR)/etc/opennms/events
-	chmod 755 $(ONMSSVR)/usr/sbin/opennms
-	chmod 644 $(ONMSSVR)/usr/share/opennms/lib/*.jar
 
 	##
-	## Setup the opennms-webapp package
+	## Setup the opennms-webapp-jetty package
 	##
-	mv $(TMP)/webapps/opennms/* \
-		$(ONMSWEB)/usr/share/opennms/webapps/opennms/
-	ln -s /usr/share/opennms/webapps/opennms/META-INF/context.xml \
-		$(ONMSWEB)/var/lib/tomcat5.5/conf/Catalina/localhost/opennms.xml
-	install -m 644 $(CURDIR)/debian/opennms-webapp.overrides \
-		$(ONMSWEB)/usr/share/lintian/overrides/opennms-webapp
-	install -m 644 $(CURDIR)/debian/tomcat.policy \
-		$(ONMSWEB)/etc/tomcat5.5/policy.d/99opennms.policy
+	install -m 644 debian/opennms-webapp-jetty.overrides debian/opennms-webapp-jetty/usr/share/lintian/overrides/opennms-webapp-jetty
+	mv debian/temp/jetty-webapps/opennms/* debian/opennms-webapp-jetty/usr/share/opennms/jetty-webapps/opennms/
+	find debian/opennms-webapp-jetty/usr/share/opennms/jetty-webapps/opennms -type f -execdir chmod 644 {} \;
 
-	# Fix tomcat port number for Debian standard tomcat5.5 8180
-	sed -e 's/localhost:8080/localhost:8180/g' \
-		$(ONMSWEB)/usr/share/opennms/webapps/opennms/WEB-INF/configuration.properties> \
-		$(ONMSWEB)/usr/share/opennms/webapps/opennms/WEB-INF/configuration.properties.tmp
-	mv $(ONMSWEB)/usr/share/opennms/webapps/opennms/WEB-INF/configuration.properties.tmp \
-		$(ONMSWEB)/usr/share/opennms/webapps/opennms/WEB-INF/configuration.properties
+	##
+	## Setup the opennms-webapp-standalone package
+	##
+	install -m 644 debian/opennms-webapp-standalone.overrides debian/opennms-webapp-standalone/usr/share/lintian/overrides/opennms-webapp-standalone
+	mv debian/temp/webapps/opennms/* debian/opennms-webapp-standalone/usr/share/opennms/webapps/opennms/
+	find debian/opennms-webapp-standalone/usr/share/opennms/webapps/opennms -type f -execdir chmod 644 {} \;
+	install -m 644 debian/opennms-webapp-standalone.policy debian/opennms-webapp-standalone/etc/tomcat5.5/policy.d/99opennms.policy
 
-
-	# Fix permissions and ownership
-	chgrp -R nogroup $(ONMSWEB)/etc/opennms
-	chmod 2775 $(ONMSWEB)/etc/opennms
-	chmod 660 $(ONMSWEB)/usr/share/opennms/webapps/opennms/WEB-INF/web.xml
-	chmod 660 $(ONMSWEB)/usr/share/opennms/webapps/opennms/WEB-INF/configuration.properties
-	chmod 644 $(ONMSWEB)/etc/tomcat5.5/policy.d/99opennms.policy
+	# Adjust the port numbers in the default post-back URLs to account for
+	# tomcat listening on port 8180 instead of 8080
+	sed -i -e 's/localhost:8080/localhost:8180/g' \
+		debian/opennms-webapp-standalone/usr/share/opennms/webapps/opennms/WEB-INF/configuration.properties
 
 	##
 	## Setup the opennms-doc package
 	##
-	cp -a $(CURDIR)/opennms-doc/target/docbkx/html/* $(ONMSDOC)/usr/share/doc/opennms-doc/
+	mv debian/temp/docs/* debian/opennms-doc/usr/share/doc/opennms/
+	find debian/opennms-doc/usr/share/doc/opennms -type f -execdir chmod 644 {} \;
+
+	##
+	## Setup the opennms-contrib package
+	##
+	mv debian/temp/contrib/* debian/opennms-contrib/usr/share/opennms/contrib/
+	# Remove this unstripped i386 Linux binary to quiet lintian
+	rm -f debian/opennms-contrib/usr/share/opennms/contrib/qosdaemon/qos_example_configuration/testtraps/trapgen
+	find debian/opennms-contrib/usr/share/opennms/contrib -type f -execdir chmod 644 {} \;
+	find debian/opennms-contrib/usr/share/opennms/contrib -type f -iname "*.pl" -execdir chmod 755 {} \;
+	find debian/opennms-contrib/usr/share/opennms/contrib -type f -iname "*.sh" -execdir chmod 755 {} \;
+	chmod 755 debian/opennms-contrib/usr/share/opennms/contrib/downOpenNMS
 
 
 # Build architecture-independent files here.
 binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
@@ -231,7 +159,7 @@ binary-arch: build install
 	dh_link
 	dh_strip
 	dh_compress
-	dh_fixperms
+	#dh_fixperms # Disabled to allow non-standard permissions
 	dh_makeshlibs -n
 	dh_installdeb
 	dh_perl debian/opennms-common/usr/share/opennms/bin debian/opennms-contrib/usr/share/opennms/contrib
@@ -239,6 +167,9 @@ binary-arch: build install
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
+
+# Build architecture-dependent files here.
+binary-arch: build install
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install configure

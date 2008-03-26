@@ -31,8 +31,8 @@ test -x $DAEMON || exit 0
 set -e
 
 # read in settings from default file
-if [ -f /etc/default/opennms ]; then
-	. /etc/default/opennms
+if [ -f /etc/default/$NAME ]; then
+	. /etc/default/$NAME
 fi
 
 # Check for JAVA_HOME

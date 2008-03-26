@@ -1,9 +1,3 @@
-- Figure out why Tomcat refuses to use web.xml as a symlink, (hint: look
-  at Tomcat java policy).
-
-- The packages should readily support running the webapp, database, and
-  app on separate machines
-
 - Write a man page.
 
 - Audit for Debian policy
