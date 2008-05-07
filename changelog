@@ -1,3 +1,9 @@
+opennms (1.5.91-2) unstable; urgency=low
+
+  * Fix for bug #2461 (incorrect script location)
+
+ -- Benjamin Reed <ranger@opennms.org>  Wed, 07 May 2008 12:09:08 -0500
+
 opennms (1.5.91-1) unstable; urgency=low
 
   * New upstream release.
