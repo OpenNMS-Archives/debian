@@ -94,8 +94,8 @@ install: build
 		debian/opennms-common/etc/opennms/vulnscand-configuration.xml
 
 	# Update paths in scripts and config files
-	sed -i -e 's/opt\/OpenNMS/usr\/share\/opennms/g' debian/opennms-common/usr/share/opennms/bin/opennms
-	sed -i -e 's/bin\/mail/usr\/bin\/mail/' debian/opennms-common/etc/opennms/notificationCommands.xml
+	sed -i -e 's,/opt/OpenNMS,/usr/share/opennms,g' debian/opennms-common/usr/share/opennms/bin/opennms
+	sed -i -e 's,bin/mail,usr/bin/mail,' debian/opennms-common/etc/opennms/notificationCommands.xml
 
 	# Adjust the HttpAdaptor port number to avoid conflicting with tomcat,
 	# which listens on 8180 by default

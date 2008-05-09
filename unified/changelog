@@ -1,8 +1,26 @@
-opennms (1.7.0-0) unstable; urgency=low
+opennms (1.7.0-0.20080509) unstable; urgency=low
 
   * Updating snapshot version for trunk.
 
- -- Benjamin Reed <ranger@opennms.org>  Mon, 21 Apr 2008 11:25:00 -0500
+ -- Benjamin Reed <ranger@opennms.org>  Fri, 09 May 2008 10:03:01 -0500
+
+opennms (1.5.91-3) unstable; urgency=low
+
+  * More package tweaks and fix for an upgrade issue
+
+ -- Benjamin Reed <ranger@opennms.org>  Fri, 09 May 2008 09:55:57 -0500
+
+opennms (1.5.91-3) unstable; urgency=low
+
+  * Fix for bug #2461 (incorrect script location)
+
+ -- Benjamin Reed <ranger@opennms.org>  Thu, 08 May 2008 08:52:08 -0500
+
+opennms (1.5.91-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Benjamin Reed <ranger@opennms.org>  Mon, 05 May 2008 16:54:00 -0500
 
 opennms (1.5.90-1) unstable; urgency=low
 
