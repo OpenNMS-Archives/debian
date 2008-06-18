@@ -1,3 +1,9 @@
+opennms (1.5.92-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Benjamin Reed <ranger@opennms.org>  Wed, 18 Jun 2008 12:08:13 -0500
+
 opennms (1.5.91-3) unstable; urgency=low
 
   * More package tweaks and fix for an upgrade issue
