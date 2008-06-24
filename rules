@@ -22,22 +22,10 @@ export BUILDDEFINES=\
 	-Dproduct.release=1 \
 	-Dproduct.snapshot=true
 
-STAMP_PATCH = debian/stamp-patched
-patch: $(STAMP_PATCH)
-$(STAMP_PATCH):
-	cat debian/patches/* | patch -p1
-	touch $(STAMP_PATCH)
-
-unpatch:
-	@if [ -f $(STAMP_PATCH) ]; then \
-		cat debian/patches/* | patch -p1 -R; \
-	fi
-	rm -f $(STAMP_PATCH)
-
 configure:
 
 STAMP_BUILD = debian/stamp-build
-build: patch configure $(STAMP_BUILD)
+build: configure $(STAMP_BUILD)
 $(STAMP_BUILD):
 	dh_testdir
 	# -Duser.home=$(HOME) is needed to get maven to use the correct ~/.m2/ directory when being run with fakeroot
@@ -49,7 +37,7 @@ $(STAMP_BUILD):
 	fi
 	touch $(STAMP_BUILD)
 
-clean: unpatch
+clean:
 	dh_testdir
 	dh_testroot
 	sh ./build.sh -Duser.home=$(HOME) -Ddist.dir=$(CURDIR)/debian -Ddist.name=temp clean
