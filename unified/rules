@@ -63,6 +63,14 @@ install: build
 	chmod 644 debian/libopennmsdeps-java/usr/share/java/opennms/*
 
 	##
+	## Setup the opennms-remote-poller package
+	##
+	install -m 755 debian/opennms-remote-poller.bin \
+		debian/opennms-remote-poller/usr/sbin/opennms-remote-poller
+	install -m 644 opennms-remote-poller/target/opennms-remote-poller*jar-with-dependencies.jar \
+		debian/opennms-remote-poller/usr/share/java/opennms-remote-poller.jar
+		
+	##
 	## Setup the opennms-common package
 	##
 	mv debian/temp/bin/* debian/opennms-common/usr/share/opennms/bin/
@@ -140,7 +148,8 @@ binary-indep: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
-	dh_installinit --name=opennms --no-start -u"defaults 21 19"
+	dh_installinit -n --package=opennms-server --name=opennms --no-start -u"defaults 21 19"
+	dh_installinit -n --package=opennms-remote-poller
 	dh_installman
 	dh_installchangelogs CHANGELOG
 	dh_installdebconf
