@@ -1,7 +1,7 @@
 #! /bin/sh
-# postinst script for opennms-server
+# postinst script for opennms-remote-poller
 #
-# $Id: opennms-server.postinst 6631 2007-06-29 18:03:16Z jgehlbach $
+# $Id$
 #
 # vim:set ai et sts=4 sw=4 tw=0:
 
@@ -9,15 +9,13 @@ set -e
 
 case "$1" in
     configure)
-        # Add the opennms init script (but don't start it)
-        update-rc.d opennms-remote-poller defaults 21 20 >/dev/null || :
-
-        # Invoke runjava to setup java.conf
-	if [ -x /usr/lib/jvm/java-6-sun/bin/java ]; then
-		echo 'JAVA_HOME=/usr/lib/jvm/java-6-sun' >> /etc/default/opennms-remote-poller
-	else
-		echo 'JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun' >> /etc/default/opennms-remote-poller
-	fi
+        if [ -x /usr/lib/jvm/java-6-sun/bin/java ]; then
+                (grep -v ^JAVA_HOME /etc/default/opennms-remote-poller || : ; echo 'JAVA_HOME=/usr/lib/jvm/java-6-sun') > /etc/default/opennms-remote-poller.new
+                mv /etc/default/opennms-remote-poller.new /etc/default/opennms-remote-poller || :
+        else
+                (grep -v ^JAVA_HOME /etc/default/opennms || : ; echo 'JAVA_HOME=/usr/lib/jvm/java-1.5.0-sun') > /etc/default/opennms-remote-poller.new
+                mv /etc/default/opennms-remote-poller.new /etc/default/opennms-remote-poller || :
+        fi
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
 
