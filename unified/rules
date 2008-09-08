@@ -139,7 +139,9 @@ install: build
 	find debian/opennms-contrib/usr/share/opennms/contrib -type f -execdir chmod 644 {} \;
 	find debian/opennms-contrib/usr/share/opennms/contrib -type f -iname "*.pl" -execdir chmod 755 {} \;
 	find debian/opennms-contrib/usr/share/opennms/contrib -type f -iname "*.sh" -execdir chmod 755 {} \;
-	chmod 755 debian/opennms-contrib/usr/share/opennms/contrib/downOpenNMS
+	chmod 755 debian/opennms-contrib/usr/share/opennms/contrib/downOpenNMS \
+		debian/opennms-contrib/usr/share/opennms/contrib/alvarion/link_quality \
+		debian/opennms-contrib/usr/share/opennms/contrib/alvarion/run_link_quality
 
 
 # Build architecture-independent files here.
@@ -147,8 +149,8 @@ binary-indep: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
-	dh_installinit -n --package=opennms-server --name=opennms --no-start -u"defaults 21 19"
-	dh_installinit -n --package=opennms-remote-poller --no-start -u"defaults 21 19"
+	dh_installinit --package=opennms-server --name=opennms --no-start -u"defaults 21 19"
+	dh_installinit --package=opennms-remote-poller --no-start -u"defaults 21 19"
 	dh_installman
 	dh_installchangelogs CHANGELOG
 	dh_installdebconf

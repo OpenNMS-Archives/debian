@@ -3,7 +3,7 @@
 LOCATION=$2
 RMI_HOST=$1
 
-function usage() {
+usage() {
 	echo "Usage:"
 	echo "$0 <rmi host> <location>"
 	exit 1;
