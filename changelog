@@ -1,8 +1,8 @@
-opennms (1.5.96-5) unstable; urgency=medium
+opennms (1.5.96-6) unstable; urgency=medium
 
   * Rebuild with a patch for notification stuff.
 
- -- Benjamin Reed <ranger@opennms.org>  Wed, 01 Oct 2008 11:25:03 -0500
+ -- Benjamin Reed <ranger@opennms.org>  Wed, 01 Oct 2008 15:37:23 -0500
 
 opennms (1.5.96-4) unstable; urgency=medium
 
