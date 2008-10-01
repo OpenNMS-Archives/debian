@@ -1,21 +1,27 @@
+opennms (1.5.96-5) unstable; urgency=medium
+
+  * Rebuild with a patch for notification stuff.
+
+ -- Benjamin Reed <ranger@opennms.org>  Wed, 01 Oct 2008 11:25:03 -0500
+
 opennms (1.5.96-4) unstable; urgency=medium
 
   * New upstream release.
 
- -- Benjamin Reed <ranger@opennms.org>  Thu, 30 Sep 2008 23:54:22 -0500
+ -- Benjamin Reed <ranger@opennms.org>  Tue, 30 Sep 2008 23:54:22 -0500
 
 opennms (1.5.96-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Benjamin Reed <ranger@opennms.org>  Thu, 30 Sep 2008 18:38:28 -0500
+ -- Benjamin Reed <ranger@opennms.org>  Tue, 30 Sep 2008 18:38:28 -0500
 
 opennms (1.5.95-1) unstable; urgency=high
 
   * New upstream release.
   * Fix for important poller bug.
 
- -- Benjamin Reed <ranger@opennms.org>  Thu, 30 Sep 2008 12:23:53 -0500
+ -- Benjamin Reed <ranger@opennms.org>  Tue, 30 Sep 2008 12:23:53 -0500
 
 opennms (1.5.94-1) unstable; urgency=medium
 
