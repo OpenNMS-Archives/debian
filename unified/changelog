@@ -1,8 +1,38 @@
-opennms (1.7.0-0.20081015) unstable; urgency=low
+opennms (1.7.0-1) unstable; urgency=low
 
-  * Updating snapshot version for trunk.
+  * New upstream release.
 
  -- Benjamin Reed <ranger@opennms.org>  Wed, 15 Oct 2008 21:38:55 -0500
+
+opennms (1.6.2-1) stable; urgency=low
+
+  * New upstream release.
+
+ -- Benjamin Reed <ranger@opennms.org>  Thu, 15 Jan 2009 09:15:35 -0500
+
+opennms (1.6.1-1) stable; urgency=low
+
+  * New upstream release.
+
+ -- Benjamin Reed <ranger@opennms.org>  Thu, 13 Nov 2008 14:05:15 -0500
+
+opennms (1.6.0-1) stable; urgency=medium
+
+  * New upstream release.
+
+ -- Benjamin Reed <ranger@opennms.org>  Tue, 28 Oct 2008 10:49:06 -0500
+
+opennms (1.5.99-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Benjamin Reed <ranger@opennms.org>  Wed, 23 Oct 2008 12:11:10 -0500
+
+opennms (1.5.98-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Benjamin Reed <ranger@opennms.org>  Wed, 22 Oct 2008 21:45:57 -0500
 
 opennms (1.5.97-1) unstable; urgency=low
 
