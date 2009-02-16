@@ -4,6 +4,12 @@ opennms (1.7.0-1) unstable; urgency=low
 
  -- Benjamin Reed <ranger@opennms.org>  Wed, 15 Oct 2008 21:38:55 -0500
 
+opennms (1.6.2-2) stable; urgency=low
+
+  * Update dependencies to allow OpenJDK.
+
+ -- Benjamin Reed <ranger@opennms.org>  Fri, 13 Feb 2009 16:07:00 -0500
+
 opennms (1.6.2-1) stable; urgency=low
 
   * New upstream release.
