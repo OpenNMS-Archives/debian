@@ -31,16 +31,16 @@ $(STAMP_BUILD):
 	# -Duser.home=$(HOME) is needed to get maven to use the correct ~/.m2/ directory when being run with fakeroot
 	@if [ -f "$$OPENNMS_SETTINGS_XML" ]; then \
 		echo "using $$OPENNMS_SETTINGS_XML"; \
-		sh ./build.sh -s $$OPENNMS_SETTINGS_XML $(BUILDDEFINES) install assembly:directory-inline; \
+		sh ./build.sh -Dbuild=all -s $$OPENNMS_SETTINGS_XML $(BUILDDEFINES) install assembly:directory-inline; \
 	else \
-		sh ./build.sh -Duser.home=$(HOME) $(BUILDDEFINES) install assembly:directory-inline; \
+		sh ./build.sh -Dbuild=all -Duser.home=$(HOME) $(BUILDDEFINES) install assembly:directory-inline; \
 	fi
 	touch $(STAMP_BUILD)
 
 clean:
 	dh_testdir
 	dh_testroot
-	sh ./build.sh -Duser.home=$(HOME) -Ddist.dir=$(CURDIR)/debian -Ddist.name=temp clean
+	sh ./build.sh -Dbuild=all -Duser.home=$(HOME) -Ddist.dir=$(CURDIR)/debian -Ddist.name=temp clean
 	dh_clean
 	rm -f $(STAMP_BUILD)
 
@@ -101,7 +101,7 @@ install: build
 	## Setup the opennms-remote-poller package
 	##
 	install -m 755 debian/opennms-remote-poller.bin debian/opennms-remote-poller/usr/sbin/opennms-remote-poller
-	install -m 644 opennms-remote-poller/target/*remote-poller-*-jar-with-dependencies.jar \
+	install -m 644 features/remote-poller/target/*remote-poller-*-jar-with-dependencies.jar \
 		debian/opennms-remote-poller/usr/share/java/opennms-remote-poller.jar
 
 	##
