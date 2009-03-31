@@ -101,7 +101,7 @@ install: build
 	## Setup the opennms-remote-poller package
 	##
 	install -m 755 debian/opennms-remote-poller.bin debian/opennms-remote-poller/usr/sbin/opennms-remote-poller
-	install -m 644 opennms-remote-poller/target/opennms-remote-poller*jar-with-dependencies.jar \
+	install -m 644 opennms-remote-poller/target/*remote-poller-*-jar-with-dependencies.jar \
 		debian/opennms-remote-poller/usr/share/java/opennms-remote-poller.jar
 
 	##
