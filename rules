@@ -41,6 +41,7 @@ $(STAMP_BUILD):
 	cp integrations/opennms-map-provisioning-adapter/target/*.jar  debian/temp/integrations/
 	cp integrations/opennms-rancid/target/*.jar                    debian/temp/integrations/
 	rm -rf debian/temp/integrations/*-sources.jar
+	rm -rf debian/temp/integrations/*-tests.jar
 	cp integrations/opennms-link-provisioning-adapter/src/main/resources/link-adapter-configuration.xml debian/temp/integrations/
 	cp integrations/opennms-map-provisioning-adapter/src/main/resources/mapsadapter-configuration.xml   debian/temp/integrations/
 	find debian/temp -type d -name .svn -exec rm -rf {} \;
