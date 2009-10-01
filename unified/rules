@@ -35,6 +35,17 @@ $(STAMP_BUILD):
 	else \
 		sh ./build.sh -Dbuild=all -Duser.home=$(HOME) $(BUILDDEFINES) install assembly:directory-inline; \
 	fi
+	install -d -m 755 debian/temp/integrations
+	cp integrations/opennms-dns-provisioning-adapter/target/*.jar  debian/temp/integrations/
+	cp integrations/opennms-link-provisioning-adapter/target/*.jar debian/temp/integrations/
+	cp integrations/opennms-map-provisioning-adapter/target/*.jar  debian/temp/integrations/
+	cp integrations/opennms-rancid/target/*.jar                    debian/temp/integrations/
+	rm -rf debian/temp/integrations/*-sources.jar
+	rm -rf debian/temp/integrations/*-tests.jar
+	rm -rf debian/temp/integrations/*-xsds.jar
+	cp integrations/opennms-link-provisioning-adapter/src/main/resources/link-adapter-configuration.xml debian/temp/integrations/
+	cp integrations/opennms-map-provisioning-adapter/src/main/resources/mapsadapter-configuration.xml   debian/temp/integrations/
+	find debian/temp -type d -name .svn -exec rm -rf {} \;
 	touch $(STAMP_BUILD)
 
 clean:
@@ -54,7 +65,8 @@ install: build
 	## Setup the libopennms-java package
 	##
 	mv debian/temp/lib/opennms*.jar debian/libopennms-java/usr/share/java/opennms/
-	chmod 644 debian/libopennms-java/usr/share/java/opennms/*
+	mv debian/temp/lib/endorsed     debian/libopennms-java/usr/share/java/opennms/
+	chmod 644 debian/libopennms-java/usr/share/java/opennms/*.jar debian/libopennms-java/usr/share/java/opennms/endorsed/*.jar
 
 	##
 	## Setup the libopennmsdeps-java package
@@ -143,6 +155,17 @@ install: build
 		debian/opennms-contrib/usr/share/opennms/contrib/alvarion/link_quality \
 		debian/opennms-contrib/usr/share/opennms/contrib/alvarion/run_link_quality
 
+	##
+	## Setup the provision adapter packages
+	##
+	install -d -m 755 debian/opennms-plugin-provisioning-{dns,link,map,rancid}/usr/share/java/opennms
+	install -d -m 755 debian/opennms-plugin-provisioning-{link,map}/etc/opennms
+	mv debian/temp/integrations/opennms-dns-provisioning-adapter*.jar  debian/opennms-plugin-provisioning-dns/usr/share/java/opennms/
+	mv debian/temp/integrations/opennms-link-provisioning-adapter*.jar debian/opennms-plugin-provisioning-link/usr/share/java/opennms/
+	mv debian/temp/integrations/opennms-map-provisioning-adapter*.jar  debian/opennms-plugin-provisioning-map/usr/share/java/opennms/
+	mv debian/temp/integrations/opennms-rancid*.jar                    debian/opennms-plugin-provisioning-rancid/usr/share/java/opennms/
+	mv debian/temp/integrations/link-adapter-configuration.xml         debian/opennms-plugin-provisioning-link/etc/opennms/
+	mv debian/temp/integrations/mapsadapter-configuration.xml          debian/opennms-plugin-provisioning-map/etc/opennms/
 
 # Build architecture-independent files here.
 binary-indep: build install

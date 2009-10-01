@@ -187,3 +187,78 @@ Description: Enterprise-grade Open-source Network Management Platform (Contrib)
  .
  This package provides additional features and functionality that are not part
  of OpenNMS proper.
+
+Package: opennms-plugins
+Architecture: all
+Depends: opennms-plugin-provisioning-dns (=${binary:Version}), opennms-plugin-provisioning-link (=${binary:Version}), opennms-plugin-provisioning-map (=${binary:Version}), opennms-plugin-provisioning-rancid (=${binary:Version})
+Description: Enterprise-grade Open-source Network Management Platform (All Plugins)
+ OpenNMS is an enterprise-grade network management system written in Java.
+ .
+ OpenNMS can monitor various network services to determine status and service
+ level availability.  Data collection is performed using protocols such as SNMP
+ to generate reports and alert on thresholds.  An extensible event management
+ and notification system handles both internally and externally generated
+ events (such as SNMP traps), and generates notices via email, pager, SMS, etc.
+ .
+ This package installs all optional plugins for OpenNMS.
+
+Package: opennms-plugin-provisioning-dns
+Architecture: all
+Depends: opennms-server (=${binary:Version})
+Description: Enterprise-grade Open-source Network Management Platform (DNS Provisioning Adapter)
+ OpenNMS is an enterprise-grade network management system written in Java.
+ .
+ OpenNMS can monitor various network services to determine status and service
+ level availability.  Data collection is performed using protocols such as SNMP
+ to generate reports and alert on thresholds.  An extensible event management
+ and notification system handles both internally and externally generated
+ events (such as SNMP traps), and generates notices via email, pager, SMS, etc.
+ .
+ The DNS provisioning adapter allows for provisioning nodes in OpenNMS based on
+ a DNS zone transfer query.
+
+Package: opennms-plugin-provisioning-link
+Architecture: all
+Depends: opennms-server (=${binary:Version})
+Description: Enterprise-grade Open-source Network Management Platform (Link Provisioning Adapter)
+ OpenNMS is an enterprise-grade network management system written in Java.
+ .
+ OpenNMS can monitor various network services to determine status and service
+ level availability.  Data collection is performed using protocols such as SNMP
+ to generate reports and alert on thresholds.  An extensible event management
+ and notification system handles both internally and externally generated
+ events (such as SNMP traps), and generates notices via email, pager, SMS, etc.
+ .
+ The link provisioning adapter creates links between provisioned nodes based on
+ naming conventions defined in the link-adapter-configuration.xml file.  It
+ also updates the status of the map links based on data link events.
+
+Package: opennms-plugin-provisioning-map
+Architecture: all
+Depends: opennms-server (=${binary:Version})
+Description: Enterprise-grade Open-source Network Management Platform (Map Provisioning Adapter)
+ OpenNMS is an enterprise-grade network management system written in Java.
+ .
+ OpenNMS can monitor various network services to determine status and service
+ level availability.  Data collection is performed using protocols such as SNMP
+ to generate reports and alert on thresholds.  An extensible event management
+ and notification system handles both internally and externally generated
+ events (such as SNMP traps), and generates notices via email, pager, SMS, etc.
+ .
+ The map provisioning adapter will automatically create maps when nodes are
+ provisioned in OpenNMS.
+
+Package: opennms-plugin-provisioning-rancid
+Architecture: all
+Depends: opennms-server (=${binary:Version})
+Description: Enterprise-grade Open-source Network Management Platform (RANCID Provisioning Adapter)
+ OpenNMS is an enterprise-grade network management system written in Java.
+ .
+ OpenNMS can monitor various network services to determine status and service
+ level availability.  Data collection is performed using protocols such as SNMP
+ to generate reports and alert on thresholds.  An extensible event management
+ and notification system handles both internally and externally generated
+ events (such as SNMP traps), and generates notices via email, pager, SMS, etc.
+ .
+ The RANCID provisioning adapter coordinates with the RANCID Web Service by
+ updating RANCID's device database when OpenNMS provisions nodes.
