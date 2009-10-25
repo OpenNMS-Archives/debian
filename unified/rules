@@ -44,6 +44,7 @@ $(STAMP_BUILD):
 	rm -rf debian/temp/integrations/*-tests.jar
 	rm -rf debian/temp/integrations/*-xsds.jar
 	cp integrations/opennms-link-provisioning-adapter/src/main/resources/link-adapter-configuration.xml debian/temp/integrations/
+	cp integrations/opennms-link-provisioning-adapter/src/main/resources/endpoint-configuration.xml debian/temp/integrations/
 	cp integrations/opennms-map-provisioning-adapter/src/main/resources/mapsadapter-configuration.xml   debian/temp/integrations/
 	find debian/temp -type d -name .svn -exec rm -rf {} \;
 	touch $(STAMP_BUILD)
@@ -165,6 +166,7 @@ install: build
 	mv debian/temp/integrations/opennms-map-provisioning-adapter*.jar  debian/opennms-plugin-provisioning-map/usr/share/java/opennms/
 	mv debian/temp/integrations/opennms-rancid*.jar                    debian/opennms-plugin-provisioning-rancid/usr/share/java/opennms/
 	mv debian/temp/integrations/link-adapter-configuration.xml         debian/opennms-plugin-provisioning-link/etc/opennms/
+	mv debian/temp/integrations/endpoint-configuration.xml         debian/opennms-plugin-provisioning-link/etc/opennms/
 	mv debian/temp/integrations/mapsadapter-configuration.xml          debian/opennms-plugin-provisioning-map/etc/opennms/
 
 # Build architecture-independent files here.
