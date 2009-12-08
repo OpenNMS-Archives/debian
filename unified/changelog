@@ -1,8 +1,8 @@
-opennms (1.7.8-0) unstable; urgency=medium
+opennms (1.7.8-1) unstable; urgency=medium
 
-  * Snapshot build
+  * New upstream release.
 
- -- Benjamin Reed <ranger@opennms.org>  Mon, 05 Oct 2009 19:57:00 -0500
+ -- Benjamin Reed <ranger@opennms.org>  Tue, 08 Dec 2009 12:02:00 -0500
 
 opennms (1.7.7-1) unstable; urgency=medium
 
