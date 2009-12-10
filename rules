@@ -53,7 +53,7 @@ install: build
 	##
 	## Setup the libopennms-java package
 	##
-	mv debian/temp/lib/opennms*.jar debian/libopennms-java/usr/share/java/opennms/
+	mv debian/temp/lib/opennms*.jar debian/temp/lib/setup debian/libopennms-java/usr/share/java/opennms/
 	chmod 644 debian/libopennms-java/usr/share/java/opennms/*
 
 	##
