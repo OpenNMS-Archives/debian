@@ -89,6 +89,8 @@ install: build
 	# which listens on 8180 by default
 	sed -i -e 's/8180/8280/' debian/opennms-common/etc/opennms/service-configuration.xml
 
+	rsync -ar --exclude=examples debian/opennms-common/etc/ debian/opennms-common/usr/share/opennms/etc-pristine/
+
 	##
 	## Setup the opennms-db package
 	##
